@@ -31,7 +31,7 @@ public class UsersTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Создание пользователя")
+    @DisplayName("Регистрация пользователя")
     public void createUserTest() {
         String str = """
                 {
@@ -46,6 +46,28 @@ public class UsersTests extends BaseTest {
                 .body(str)
                 .when()
                 .post("/api/register")
+                .then()
+                .log().body()
+                .statusCode(200)
+                .body("token", equalTo("QpwL5tke4Pnpja7X4"));
+    }
+
+    @Test
+    @DisplayName("Логин пользователя")
+    public void loginUserTest() {
+        String str = """
+                {
+                  "email": "eve.holt@reqres.in",
+                  "password": "cityslicka"
+                }
+                """;
+
+        given()
+                .spec(requestSpec)
+                .contentType(ContentType.JSON)
+                .body(str)
+                .when()
+                .post("/api/login")
                 .then()
                 .log().body()
                 .statusCode(200)
