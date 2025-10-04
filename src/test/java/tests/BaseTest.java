@@ -17,6 +17,7 @@ public class BaseTest {
                 .addHeader("x-api-key", "reqres-free-v1")
                 .setAccept(ContentType.JSON)
                 .addFilter(new AllureRestAssured());
+
         requestSpec = builder.build();
     }
 }
